@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
- * @author jam
- * @date 2021/7/8 10:10 上午
+ * beforeBodyWrite process
  */
 @RestControllerAdvice
 public class ResponseAdvice implements ResponseBodyAdvice<Object> {
