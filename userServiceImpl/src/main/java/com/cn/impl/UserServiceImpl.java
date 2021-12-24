@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean update(int userId, UpdateReq req) {
+    public boolean update(int userId, User req) {
         User build = User.builder()
                 .id(userId)
                 .name(req.getName())

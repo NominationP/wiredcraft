@@ -7,7 +7,7 @@ public interface UserService {
     User get(int id);
     boolean create(User user);
 
-    boolean update(int userId, UpdateReq req);
+    boolean update(int userId, User req);
 
     boolean delete(int userId);
 }
