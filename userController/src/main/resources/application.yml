@@ -1,0 +1,37 @@
+# 主配置
+spring:
+  profiles:
+    active: dev
+  application:
+    name: user
+
+  flyway:
+    enabled: true
+    clean-disabled: true
+    encoding: UTF-8
+    locations: classpath:/db
+    table: flyway_schema_history_thrity_party
+    baseline-version: 1
+    baseline-on-migrate: true
+    placeholders:
+      flyway-table: ${spring.flyway.table}
+    out-of-order: true
+  main:
+    allow-bean-definition-overriding: true
+
+  jackson:
+    time-zone: GMT+8
+    date-format: "yyyy-MM-dd HH:mm:ss"
+
+
+mybatis:
+  mapper-locations: classpath*:/com/cn/mapper/*.xml
+  config-location: classpath:mybatis-config.xml
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+
