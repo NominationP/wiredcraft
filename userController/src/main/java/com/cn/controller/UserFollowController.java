@@ -1,6 +1,9 @@
 package com.cn.controller;
 
+import com.cn.dto.FollowingReq;
 import com.cn.dto.ShowFansReq;
+import com.cn.dto.ShowFollowingReq;
+import com.cn.dto.UnfollowingReq;
 import com.cn.entity.UserDetail;
 import com.cn.entity.UserFollow;
 import com.cn.service.UserDetailService;
@@ -21,39 +24,28 @@ public class UserFollowController {
     UserFollowService followService;
 
 
-    @GetMapping("/{userId}")
-    PageInfo<UserFollow> showFans(@PathVariable ShowFansReq req) {
+    @RequestMapping(value = "/showFans")
+    PageInfo<UserFollow> showFans(@RequestBody ShowFansReq req) {
         return followService.showFans(req);
     }
 
-
-    @PutMapping("/{id}")
-    /*
-    todo UpdateReq not work
-     */
-    String update(@PathVariable int id, @RequestBody UserDetail user) {
-        if (userService.update(id, user)) {
-            return "success to update user";
-        }
-        return "fail to update user";
+    @RequestMapping(value = "/showFollowing")
+    PageInfo<UserFollow> showFans(@RequestBody ShowFollowingReq req) {
+        return followService.showFollowing(req);
     }
 
+    @RequestMapping(value = "/following")
+    String showFans(@RequestBody ArrayList<FollowingReq> reqs) {
+        return followService.following(reqs) ? "关注成功" : "关注失败";
+    }
 
-    @PostMapping(value = "/", produces = {"application/json;charset=UTF-8"})
-    String create(@Valid @RequestBody UserDetail user) {
-        if (userService.create(user)) {
-            return "success to create user";
-        }
-        return "fail to create user";
+    @RequestMapping(value = "/unfollowing")
+    String unFollowing(@RequestBody UnfollowingReq req) {
+        return followService.unFollowing(req) ? "取关成功" : "取关失败";
     }
 
 
 
-    @DeleteMapping(value = "/{userId}", produces = {"application/json;charset=UTF-8"})
-    String deleteUser(@PathVariable int userId) {
-        if (userService.delete(userId)) {
-            return "success to delete user";
-        }
-        return "fail to delete user";
-    }
+
+
 }
