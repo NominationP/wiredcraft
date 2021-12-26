@@ -15,13 +15,27 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.requestMatchers().antMatchers("/api/**","/userDetail/**").and()
-                .authorizeRequests()//授权的请求
-                //进行接口的鉴权处理
-                .antMatchers("/api/user/save").hasAuthority("admin")
-                //其余接口不做鉴权，只需要认证即可
-                .anyRequest()
-                .authenticated();
+        /*
+        todo shut down oauth2 for dev
+         */
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/userDetail/**").permitAll()
+                .antMatchers("/web/**").authenticated()
+                .anyRequest().permitAll();
+
+//        http.requestMatchers()
+//
+//                .antMatchers("/api/**","/userDetail/**").and()
+//                .authorizeRequests()//授权的请求
+//                .antMatchers("/userFollow/**").permitAll()
+//
+//                //进行接口的鉴权处理
+//                .antMatchers("/api/user/save").hasAuthority("admin")
+//
+//                //其余接口不做鉴权，只需要认证即可
+//                .anyRequest()
+//                .authenticated();
 
     }
 }

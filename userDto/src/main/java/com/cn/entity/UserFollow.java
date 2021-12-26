@@ -20,7 +20,7 @@ public class UserFollow {
     @NotNull(message = "userId is not null")
     private int userId;
     @NotNull(message = "followedUserId is not null")
-    private int followedUserId;
+    private int followingUserId;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date createdAt;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
