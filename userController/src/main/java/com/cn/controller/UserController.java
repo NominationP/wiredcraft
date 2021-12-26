@@ -1,53 +1,39 @@
 package com.cn.controller;
 
-import com.cn.dto.UpdateReq;
+
+import com.cn.dto.ReqUser;
 import com.cn.service.UserService;
-import com.cn.entity.User;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
-@Slf4j
+/**
+ * 描述：User资源服务器 UserController
+ */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
-    @Autowired
-    UserService userService;
+    @Resource
+    private UserService userService;
 
-
-    @PutMapping("/{id}")
-    /*
-    todo UpdateReq not work
+    /**
+     * 得到所有用户列表，所有权限可以访问
+     * @return
      */
-    String update(@PathVariable int id, @RequestBody User user) {
-        if (userService.update(id, user)) {
-            return "success to update user";
-        }
-        return "fail to update user";
+    @PostMapping("/users")
+    public Object getAllUsers() {
+        return userService.getAllUsers();
     }
 
-
-    @PostMapping(value = "/", produces = {"application/json;charset=UTF-8"})
-    String update(@Valid @RequestBody User user) {
-        if (userService.create(user)) {
-            return "success to create user";
-        }
-        return "fail to create user";
-    }
-
-
-    @GetMapping(value = "/{userId}", produces = {"application/json;charset=UTF-8"})
-    User getDetail(@PathVariable int userId) {
-        return userService.get(userId);
-    }
-
-    @DeleteMapping(value = "/{userId}", produces = {"application/json;charset=UTF-8"})
-    String deleteUser(@PathVariable int userId) {
-        if (userService.delete(userId)) {
-            return "success to delete user";
-        }
-        return "fail to delete user";
+    /**
+     * 增加用户，只有权限为admin的用户才可以访问
+     */
+    @PostMapping("/save")
+    public Object save(@RequestBody ReqUser reqUser)
+    {
+        return userService.save(reqUser);
     }
 }
+

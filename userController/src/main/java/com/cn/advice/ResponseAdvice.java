@@ -1,6 +1,7 @@
 package com.cn.advice;
 
 import com.cn.dto.ResultData;
+import com.cn.exception.CustomException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +29,12 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
     @SneakyThrows
     @Override
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        if(o instanceof String){
-            return objectMapper.writeValueAsString(ResultData.success(o));
-        }
         if(o instanceof ResultData){
             return o;
         }
-
+        if(o instanceof String){
+            return objectMapper.writeValueAsString(ResultData.success(o));
+        }
         return ResultData.success(o);
     }
 }

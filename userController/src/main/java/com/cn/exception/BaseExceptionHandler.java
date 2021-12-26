@@ -28,4 +28,9 @@ public class BaseExceptionHandler {
     public ResultData<String> exception(Exception e) {
         return ResultData.fail(ReturnCode.RC500.getCode(), e.getMessage());
     }
+    @ResponseBody
+    @ExceptionHandler(CustomException.class)
+    public ResultData<String> customException(CustomException e) {
+        return ResultData.fail(Integer.parseInt(e.getResultCode()), e.getMessage());
+    }
 }

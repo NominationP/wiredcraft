@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.mapper.mysql.UserDetailMapper">
+    <sql id="table_name">
+        user
+    </sql>
+
+    <sql id="short_name">
+        u
+    </sql>
+    <sql id="columns">
+        name,dob,address,description,created_at
+    </sql>
+    <sql id="columnsWithShortName">
+        u.id uId, u.name uName, u.dob uDob, u.address uAddress, u.description uDescription, u.created_at uCreatedAt
+    </sql>
+    <sql id="insert_values">
+        #{name},
+                #{dob},
+                #{address},
+                #{description},
+                CURRENT_TIMESTAMP
+    </sql>
+    <sql id="batch_insert_values">
+        #{item.name},
+                #{item.dob},
+                #{item.address},
+                #{item.description},
+                CURRENT_TIMESTAMP
+    </sql>
+    <resultMap id="result" type="com.cn.entity.UserDetail">
+        <result property="id" column="uId"/>
+        <result property="name" column="uName"/>
+        <result property="dob" column="uDob"/>
+        <result property="address" column="uAddress"/>
+        <result property="description" column="uDescription"/>
+        <result property="createdAt" column="uCreatedAt"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.cn.entity.UserDetail" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO
+        <include refid="table_name">
+        </include>
+        ( <include refid="columns">
+    </include> )
+        VALUES ( <include refid="insert_values">
+    </include> )
+    </insert>
+
+    <insert id="insertBatch" parameterType="com.cn.entity.UserDetail" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO
+        <include refid="table_name">
+        </include>
+        (<include refid="columns">
+    </include>) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (<include refid="batch_insert_values">
+        </include>)
+        </foreach>
+    </insert>
+
+    <select id="selectById" parameterType="int" resultMap="result">
+        select
+        <include refid="columnsWithShortName">
+        </include>
+        from
+        <include refid="table_name">
+        </include>
+        <include refid="short_name">
+        </include>
+        where <include refid="short_name">
+    </include>.id = #{id}
+    </select>
+    <select id="selectByCondition" resultMap="result">
+        select
+        <include refid="columnsWithShortName"/>
+        from
+        <include refid="table_name"/>
+        <include refid="short_name"/>
+        <where>
+            <if test="name!=null">
+                and name = #{name},
+            </if>
+            <if test="dob!=null">
+                and dob = #{dob},
+            </if>
+            <if test="address!=null">
+                and address = #{address},
+            </if>
+            <if test="description!=null">
+                and description = #{description},
+            </if>
+        </where>
+    </select>
+    <update id="updateById">
+        update
+        <include refid="table_name">
+        </include>
+        <set>
+            <if test="name!=null">
+                name = #{name},
+            </if>
+            <if test="dob!=null">
+                dob = #{dob},
+            </if>
+            <if test="address!=null">
+                address = #{address},
+            </if>
+            <if test="description!=null">
+                description = #{description},
+            </if>            updated_at = CURRENT_TIMESTAMP
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+    <delete id="deleteById">
+        delete from
+        <include refid="table_name"/>
+        where id = #{id}
+    </delete>
+</mapper>

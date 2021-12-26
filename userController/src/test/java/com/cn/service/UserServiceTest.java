@@ -1,7 +1,6 @@
 package com.cn.service;
 
-import com.cn.entity.User;
-import org.junit.Assert;
+import com.cn.entity.UserDetail;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.annotation.MapperScan;
@@ -20,13 +19,13 @@ import java.util.Random;
 class UserServiceTest {
 
     @Autowired
-    private UserService userService;
+    private UserDetailService userService;
 
     @Test
     @Transactional
     void update() {
         Random random = new Random();
-        User user = userService.get(1);
+        UserDetail user = userService.get(1);
         System.out.println(user);
 //        String newName = "change" + random.nextInt(50);
 //        user.setName(newName);
