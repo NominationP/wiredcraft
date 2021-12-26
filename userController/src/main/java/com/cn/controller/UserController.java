@@ -38,9 +38,6 @@ public class UserController {
     }
 
 
-
-
-
     @GetMapping(value = "/{userId}", produces = {"application/json;charset=UTF-8"})
     User getDetail(@PathVariable int userId) {
         return userService.get(userId);
