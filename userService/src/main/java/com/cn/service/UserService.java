@@ -1,13 +1,17 @@
 package com.cn.service;
 
-import com.cn.dto.UpdateReq;
+
+import com.cn.dto.ReqUser;
 import com.cn.entity.User;
 
+/**
+ * 描述：UserService接口
+ */
 public interface UserService {
-    User get(int id);
-    boolean create(User user);
+    Object getAllUsers();
 
-    boolean update(int userId, User req);
+    User getUserByUserName(String username);
 
-    boolean delete(int userId);
+    Object save(ReqUser reqUser);
 }
+

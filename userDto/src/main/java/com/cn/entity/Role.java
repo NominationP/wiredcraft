@@ -1,15 +1,15 @@
 package com.cn.entity;
 
-public class User {
+public class Role {
     private Integer id;
-
-    private String account;
 
     private String description;
 
-    private String password;
+    private Long createdTime;
 
     private String name;
+
+    private String role;
 
     public Integer getId() {
         return id;
@@ -17,14 +17,6 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account == null ? null : account.trim();
     }
 
     public String getDescription() {
@@ -35,12 +27,12 @@ public class User {
         this.description = description == null ? null : description.trim();
     }
 
-    public String getPassword() {
-        return password;
+    public Long getCreatedTime() {
+        return createdTime;
     }
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setCreatedTime(Long createdTime) {
+        this.createdTime = createdTime;
     }
 
     public String getName() {
@@ -49,5 +41,13 @@ public class User {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role == null ? null : role.trim();
     }
 }
