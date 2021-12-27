@@ -21,8 +21,8 @@ import javax.annotation.Resource;
 @Service  //因为没有加Service注解，所以please login  一直报用户名密码错误！！！
 public class MyUserServiceImpl implements UserDetailsService, MyUserService {
 
-    @Resource
-    private PasswordEncoder passwordEncoder;
+//    @Resource
+//    private PasswordEncoder passwordEncoder;
     @Resource
     private UserService userService;
 

@@ -1,4 +1,15 @@
 spring:
+  # REDIS
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+
   flyway:
     enabled: false
 
