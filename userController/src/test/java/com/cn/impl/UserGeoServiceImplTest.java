@@ -1,25 +1,19 @@
 package com.cn.impl;
 
 import com.UserServerApplication;
+import com.cn.dto.FindNearbyReq;
 import com.cn.entity.UserDetail;
-import com.cn.redisEntity.UserGeo;
-import com.cn.service.RedisGeoService;
 import com.cn.service.UserGeoService;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.GeoResults;
 import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
 import org.springframework.data.redis.connection.RedisGeoCommands;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -61,7 +55,11 @@ class UserGeoServiceImplTest {
     void findNearby() {
         UserDetail bo = UserDetail.builder().id(3).name("boo").build();
         Distance distance = new Distance(800, Metrics.KILOMETERS);
-        GeoResults<RedisGeoCommands.GeoLocation<String>> nearby = userGeoService.findNearby(bo, distance);
+        FindNearbyReq findNearbyReq = new FindNearbyReq();
+        findNearbyReq.setUserDetail(UserDetail.builder().id(1).name("bo").build());
+        findNearbyReq.setCount(5);
+        findNearbyReq.setDistance(100);
+        GeoResults<RedisGeoCommands.GeoLocation<String>> nearby = userGeoService.findNearby(findNearbyReq);
         System.out.println(nearby);
     }
 }

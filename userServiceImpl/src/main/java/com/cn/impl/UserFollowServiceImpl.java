@@ -15,6 +15,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -73,9 +74,19 @@ public class UserFollowServiceImpl implements UserFollowService {
                         .build();
                 follows.add(build);
             });
-            if (followMapper.insertBatch(follows) <= 0) {
-                throw new CustomException("关注失败,请重试!");
+            /*
+            todo hide try by ExceptionHandle
+             */
+            try{
+                if (followMapper.insertBatch(follows) <= 0) {
+                    transaction.rollback(transactionStatus);
+                    throw new CustomException("follow fail to insert");
+                }
+            }catch (Exception e){
+                transaction.rollback(transactionStatus);
+                throw new CustomException("duplication...");
             }
+
         });
         transaction.commit(transactionStatus);
         return true;

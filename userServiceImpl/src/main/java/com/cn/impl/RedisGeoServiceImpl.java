@@ -18,28 +18,11 @@ public class RedisGeoServiceImpl implements RedisGeoService {
     @Autowired
     RedisTemplate redisTemplate;
 
-    /**
-     * Returns an element whose radius does not exceed the specified distance,
-     * based on the given latitude and longitude
-     * <p>
-     * redis：georadius key 116.405285 39.904989 100 km WITHDIST WITHCOORD ASC
-     * COUNT 5
-     */
-    @Override
-    public GeoResults<RedisGeoCommands.GeoLocation<String>> nearByXY(String key, Circle circle, long count) {
-        // includeDistance
-        // includeCoordinates
-        // sortAscending
-        // limit: return special count
-        RedisGeoCommands.GeoRadiusCommandArgs args = RedisGeoCommands.GeoRadiusCommandArgs.newGeoRadiusArgs()
-                .includeDistance().includeCoordinates().sortAscending().limit(count);
-        return redisTemplate.opsForGeo().radius(key, circle, args);
-    }
 
     /**
      * Queries the location within the specified radius based on the specified location
      * <p>
-     * redis：georadiusbymember key 北京 100 km WITHDIST WITHCOORD ASC COUNT 5
+     * redis：georadiusbymember key Beijing 100 km WITHDIST WITHCOORD ASC COUNT 5
      */
     @Override
     public GeoResults<RedisGeoCommands.GeoLocation<String>> nearByPlace(String key, String member, Distance distance,
@@ -56,9 +39,6 @@ public class RedisGeoServiceImpl implements RedisGeoService {
      */
     @Override
     public Long geoAdd(String key, Point point, String username) {
-//        if (redisTemplate.hasKey(key)) {
-//            redisTemplate.opsForGeo().remove(key, username);
-//        }
         return redisTemplate.opsForGeo().add(key, point, username);
     }
 

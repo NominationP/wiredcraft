@@ -1,14 +1,17 @@
 package com.cn.impl;
 
+import com.cn.dto.FindNearbyReq;
 import com.cn.entity.UserDetail;
 import com.cn.service.RedisGeoService;
 import com.cn.service.UserGeoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.*;
 import org.springframework.data.redis.connection.RedisGeoCommands;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserGeoServiceImpl implements UserGeoService {
 
     private String getGeoKey() {
@@ -32,12 +35,13 @@ public class UserGeoServiceImpl implements UserGeoService {
 
 
     @Override
-    public GeoResults<RedisGeoCommands.GeoLocation<String>> findNearby(UserDetail userDetail, Distance distance) {
+    public GeoResults<RedisGeoCommands.GeoLocation<String>> findNearby(FindNearbyReq req) {
         String redisKey = getGeoKey();
         /*
-        todo adapt custom struct
+        todo return info adapt custom struct
          */
-        return redisGeoService.nearByPlace(redisKey, userDetail.getName(), distance, 5);
+        Distance distance = new Distance(req.getDistance(), Metrics.KILOMETERS);
+        return redisGeoService.nearByPlace(redisKey, req.getUserDetail().getName(), distance, req.getCount());
     }
 
 

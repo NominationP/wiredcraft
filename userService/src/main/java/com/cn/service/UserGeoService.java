@@ -1,5 +1,6 @@
 package com.cn.service;
 
+import com.cn.dto.FindNearbyReq;
 import com.cn.entity.UserDetail;
 import com.cn.redisEntity.UserGeo;
 import org.springframework.data.geo.Distance;
@@ -15,5 +16,5 @@ public interface UserGeoService {
 
     List<Point> getUserGeoByUserId(UserDetail userDetail);
 
-    GeoResults<RedisGeoCommands.GeoLocation<String>> findNearby(UserDetail userDetail, Distance distance);
+    GeoResults<RedisGeoCommands.GeoLocation<String>> findNearby(FindNearbyReq req);
 }

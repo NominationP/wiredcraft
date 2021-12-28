@@ -33,6 +33,6 @@ server:
 
 
 log:
-  path: "/Users/yibo/Documents/company_fenzhong/projects/20210106ThirdpartyProcess/logs"
+  path: "/Users/yibo/Documents/wiredcraft/projects/logs"
 
 
