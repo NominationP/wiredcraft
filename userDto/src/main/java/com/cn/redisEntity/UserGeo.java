@@ -14,8 +14,11 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserGeo implements Serializable {
+    /*
+    why use specific userId && userName or not get current use ?
+     */
     private int userId;
-    private int username;
+    private String username;
     private double latitude;
     private double longitude;
 }

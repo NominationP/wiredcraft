@@ -23,11 +23,14 @@ public class BaseExceptionHandler {
         );
     }
 
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResultData<String> exception(Exception e) {
-        return ResultData.fail(ReturnCode.RC500.getCode(), e.getMessage());
-    }
+    /*
+    todo this exception handler capture almost error
+     */
+//    @ExceptionHandler(Exception.class)
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    public ResultData<String> exception(Exception e) {
+//        return ResultData.fail(ReturnCode.RC500.getCode(), e.getMessage());
+//    }
     @ResponseBody
     @ExceptionHandler(CustomException.class)
     public ResultData<String> customException(CustomException e) {

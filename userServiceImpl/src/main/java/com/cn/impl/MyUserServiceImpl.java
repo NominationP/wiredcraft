@@ -14,15 +14,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
-/**
- * 描述：自定义UserDetailsService实现类
- * 名言：越难找的bug往往是越低级的
- */
-@Service  //因为没有加Service注解，所以please login  一直报用户名密码错误！！！
+@Service
 public class MyUserServiceImpl implements UserDetailsService, MyUserService {
 
-//    @Resource
-//    private PasswordEncoder passwordEncoder;
     @Resource
     private UserService userService;
 

@@ -44,7 +44,7 @@ public class UserDetailController {
 
 
 
-    @DeleteMapping(value = "/{userId}", produces = {"application/json;charset=UTF-8"})
+    @DeleteMapping(value = "/{userId}")
     String deleteUser(@PathVariable int userId) {
         if (userService.delete(userId)) {
             return "success to delete user";

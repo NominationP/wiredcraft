@@ -9,8 +9,6 @@ import org.springframework.data.redis.connection.RedisGeoCommands;
 import java.util.List;
 
 public interface RedisGeoService {
-    GeoResults<RedisGeoCommands.GeoLocation<String>> nearByXY(String key, Circle circle, long count);
-
     GeoResults<RedisGeoCommands.GeoLocation<String>> nearByPlace(String key, String member, Distance distance,
                                                                  long count);
 

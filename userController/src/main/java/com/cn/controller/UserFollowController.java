@@ -36,12 +36,12 @@ public class UserFollowController {
 
     @RequestMapping(value = "/following")
     String showFans(@RequestBody ArrayList<FollowingReq> reqs) {
-        return followService.following(reqs) ? "关注成功" : "关注失败";
+        return followService.following(reqs) ? "follow success" : "follow fail";
     }
 
     @RequestMapping(value = "/unfollowing")
     String unFollowing(@RequestBody UnfollowingReq req) {
-        return followService.unFollowing(req) ? "取关成功" : "取关失败";
+        return followService.unFollowing(req) ? "unfollow success" : "unfollow fail";
     }
 
 
